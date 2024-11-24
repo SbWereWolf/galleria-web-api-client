@@ -15,6 +15,7 @@ const endPoint = defineModel('endPoint', { default: 'API call end point' })
             v-model:api-location="apiLocation"
             v-model:end-point="endPoint"
             method="POST"
+            action-name="Create account"
             example='{
   "login": "10",
   "password": "theAccounts",

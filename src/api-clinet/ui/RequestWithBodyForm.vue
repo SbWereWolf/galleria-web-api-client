@@ -4,6 +4,7 @@ import { reactive } from 'vue'
 const apiLocation = defineModel('apiLocation', { default: 'API server host name with protocol' })
 const endPoint = defineModel('endPoint', { default: 'API call end point' })
 const method = defineModel('method', { default: 'HTTP request method' })
+const actionName = defineModel('actionName', { default: 'Example for data' })
 const example = defineModel('example', { default: 'Example for data' })
 
 const data = reactive({
@@ -23,15 +24,18 @@ async function handleSubmit() {
 
     data.code = response.status.toLocaleString()
     data.content = response.statusText
+    let result = ''
+    response.json().then((json) => {
+        result = JSON.stringify(json)
+        console.log(result)
+        if (result) {
+            data.content = result
+        }
+    })
 
     if (!response.ok) {
         console.error(response)
         throw new Error(`Response status: ${response.status}`)
-    }
-    if (response.ok) {
-        response.json().then((json) => {
-            data.content = JSON.stringify(json)
-        })
     }
 }
 </script>
@@ -55,7 +59,7 @@ async function handleSubmit() {
                 </textarea>
             </div>
             <div>
-                <button type="submit">Create account</button>
+                <button type="submit">{{ actionName }}</button>
             </div>
         </form>
     </div>
