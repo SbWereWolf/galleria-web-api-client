@@ -14,6 +14,7 @@ const endPoint = defineModel('endPoint', { default: 'API call end point' })
         <RequestWithBodyForm
             v-model:api-location="apiLocation"
             v-model:end-point="endPoint"
+            method="POST"
             example='{
   "login": "10",
   "password": "theAccounts",
@@ -26,7 +27,6 @@ const endPoint = defineModel('endPoint', { default: 'API call end point' })
   "sex": "m",
   "date_of_birth": "2000-01-01"
 }'
-            method="POST"
         />
     </details>
     <details>
