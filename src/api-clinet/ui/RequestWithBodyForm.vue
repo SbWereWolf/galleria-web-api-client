@@ -50,7 +50,6 @@ async function handleSubmit() {
                     v-model="data.input"
                     cols="40"
                     maxlength="1024"
-                    required
                     rows="10"
                     type="text"
                 >
