@@ -1,32 +1,46 @@
 <script setup>
-const ApiLocation = defineModel('ApiLocation', { default: 'API server host name with protocol' })
-const EndPoint = defineModel('EndPoint', { default: 'API call end point' })
-const Method = defineModel('Method', { default: 'HTTP request method' })
-</script>
-
-<script>
 import { reactive } from 'vue'
 
-export default {
-    name: 'LoginEndPoint',
-    setup() {
-        const data = reactive({
-            input: '',
-            code: '',
-            content: '',
-        })
+const apiLocation = defineModel('apiLocation', { default: 'API server host name with protocol' })
+const endPoint = defineModel('endPoint', { default: 'API call end point' })
+const method = defineModel('method', { default: 'HTTP request method' })
 
-        return {
-            data,
-        }
-    },
+const loginEndPoint = `${endPoint.value}/login`
+
+const data = reactive({
+    input: '{\n' + '  "login": "login",\n' + '  "password": "password"\n' + '}',
+    code: '',
+    content: '',
+})
+
+async function handleSubmit() {
+    const myHeaders = new Headers()
+    myHeaders.append('Content-Type', 'application/json')
+    const response = await fetch(`${apiLocation.value}${loginEndPoint}`, {
+        method: method.value,
+        headers: myHeaders,
+        body: data.inpu,
+    })
+
+    data.code = response.status.toLocaleString()
+    data.content = response.statusText
+
+    if (!response.ok) {
+        console.error(response)
+        throw new Error(`Response status: ${response.status}`)
+    }
+    if (response.ok) {
+        response.json().then((json) => {
+            data.content = JSON.stringify(json)
+        })
+    }
 }
 </script>
 
 <template>
     <div>
         <form @submit.prevent="handleSubmit">
-            <h1>{{ EndPoint }}</h1>
+            <h1>{{ endPoint }}</h1>
             <div>
                 <label for="body">JSON request body</label>
             </div>
@@ -43,7 +57,7 @@ export default {
                 </textarea>
             </div>
             <div>
-                <button type="submit">Submit</button>
+                <button type="submit">Login</button>
             </div>
         </form>
     </div>
