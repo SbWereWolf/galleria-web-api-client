@@ -4,11 +4,10 @@ import { reactive } from 'vue'
 const apiLocation = defineModel('apiLocation', { default: 'API server host name with protocol' })
 const endPoint = defineModel('endPoint', { default: 'API call end point' })
 const method = defineModel('method', { default: 'HTTP request method' })
-
-const loginEndPoint = `${endPoint.value}/login`
+const example = defineModel('example', { default: 'Example for data' })
 
 const data = reactive({
-    input: '{\n' + '  "login": "login",\n' + '  "password": "password"\n' + '}',
+    input: example,
     code: '',
     content: '',
 })
@@ -16,7 +15,7 @@ const data = reactive({
 async function handleSubmit() {
     const myHeaders = new Headers()
     myHeaders.append('Content-Type', 'application/json')
-    const response = await fetch(`${apiLocation.value}${loginEndPoint}`, {
+    const response = await fetch(`${apiLocation.value}${endPoint.value}`, {
         method: method.value,
         headers: myHeaders,
         body: data.input,
@@ -56,7 +55,7 @@ async function handleSubmit() {
                 </textarea>
             </div>
             <div>
-                <button type="submit">Login</button>
+                <button type="submit">Create account</button>
             </div>
         </form>
     </div>
