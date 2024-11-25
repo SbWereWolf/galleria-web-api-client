@@ -4,7 +4,7 @@ import { reactive } from 'vue'
 import Accounts from './end-point-client/accounts/ApiEndPoint.vue'
 
 const data = reactive({
-    location: 'http://localhost:8000',
+    location: 'http://localhost:8001',
     accounts: '/Accounts',
 })
 </script>
