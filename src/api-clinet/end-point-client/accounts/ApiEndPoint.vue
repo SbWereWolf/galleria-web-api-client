@@ -6,6 +6,7 @@ import RequestWithQueryStringForm from '../../ui/RequestWithQueryStringForm.vue'
 
 const apiLocation = defineModel('apiLocation', { default: 'API server host name with protocol' })
 const endPoint = defineModel('endPoint', { default: 'API call end point' })
+const sessionId = defineModel('sessionId', { default: 'API working session ID' })
 </script>
 
 <template>
@@ -32,7 +33,12 @@ const endPoint = defineModel('endPoint', { default: 'API call end point' })
     </details>
     <details>
         <summary>Начать сессию работы с API</summary>
-        <LoginForm v-model:api-location="apiLocation" v-model:end-point="endPoint" method="POST" />
+        <LoginForm
+            v-model:api-location="apiLocation"
+            v-model:end-point="endPoint"
+            v-model:session-id="sessionId"
+            method="POST"
+        />
     </details>
     <details>
         <summary>Получить данные учётной записи</summary>

@@ -4,6 +4,7 @@ import { reactive } from 'vue'
 const apiLocation = defineModel('apiLocation', { default: 'API server host name with protocol' })
 const endPoint = defineModel('endPoint', { default: 'API call end point' })
 const method = defineModel('method', { default: 'HTTP request method' })
+const sessionId = defineModel('sessionId', { default: 'API working session ID' })
 
 const loginEndPoint = `${endPoint.value}/login`
 
@@ -28,11 +29,6 @@ async function handleSubmit() {
     if (!response.ok) {
         console.error(response)
         throw new Error(`Response status: ${response.status}`)
-    }
-    if (response.ok) {
-        response.json().then((json) => {
-            data.content = JSON.stringify(json)
-        })
     }
 }
 </script>
