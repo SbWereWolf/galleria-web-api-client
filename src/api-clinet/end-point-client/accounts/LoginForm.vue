@@ -14,7 +14,7 @@ const data = reactive({
     content: '',
 })
 
-async function handleSubmit() {
+async function logIn() {
     const myHeaders = new Headers()
     myHeaders.append('Content-Type', 'application/json')
     const response = await fetch(`${apiLocation.value}${loginEndPoint}`, {
@@ -25,6 +25,14 @@ async function handleSubmit() {
 
     data.code = response.status.toLocaleString()
     data.content = response.statusText
+    response.json().then((json) => {
+        data.content = JSON.stringify(json)
+        localStorage.setItem('sessionId', json.session_id)
+    })
+
+    if (response.ok) {
+        sessionId.value = localStorage.getItem('sessionId') ?? ''
+    }
 
     if (!response.ok) {
         console.error(response)
@@ -35,7 +43,7 @@ async function handleSubmit() {
 
 <template>
     <div>
-        <form @submit.prevent="handleSubmit">
+        <form @submit.prevent="logIn">
             <h1>{{ endPoint }}</h1>
             <div>
                 <label for="body">JSON request body</label>
@@ -53,7 +61,7 @@ async function handleSubmit() {
                 </textarea>
             </div>
             <div>
-                <button type="submit">Login</button>
+                <button type="submit">Log in</button>
             </div>
         </form>
     </div>
