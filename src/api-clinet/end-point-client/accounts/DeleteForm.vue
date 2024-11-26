@@ -6,19 +6,17 @@ const endPoint = defineModel('endPoint', { default: 'API call end point' })
 const method = defineModel('method', { default: 'HTTP request method' })
 const session = defineModel('session', { default: 'API working session ID' })
 
-const logOutEndPoint = `${endPoint.value}/logout`
-
 const data = reactive({
     code: '',
     content: '',
 })
 
-async function logOut() {
+async function DeleteAccount() {
     const headers = new Headers()
     headers.append('Content-Type', 'application/json')
 
     const sessionId = localStorage.getItem('session_id')
-    const response = await fetch(`${apiLocation.value}${logOutEndPoint}/?session_id=${sessionId}`, {
+    const response = await fetch(`${apiLocation.value}${endPoint.value}/?session_id=${sessionId}`, {
         method: method.value,
         headers: headers,
     })
@@ -43,10 +41,10 @@ async function logOut() {
 
 <template>
     <div>
-        <form @submit.prevent="logOut">
+        <form @submit.prevent="DeleteAccount">
             <h1>{{ logOutEndPoint }}</h1>
             <div>
-                <button type="submit">Log Out</button>
+                <button type="submit">Delete account</button>
             </div>
         </form>
     </div>

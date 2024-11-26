@@ -15,11 +15,11 @@ const data = reactive({
 })
 
 async function logIn() {
-    const myHeaders = new Headers()
-    myHeaders.append('Content-Type', 'application/json')
+    const headers = new Headers()
+    headers.append('Content-Type', 'application/json')
     const response = await fetch(`${apiLocation.value}${logInEndPoint}`, {
         method: method.value,
-        headers: myHeaders,
+        headers: headers,
         body: data.input,
     })
 
@@ -48,7 +48,7 @@ async function logIn() {
 <template>
     <div>
         <form @submit.prevent="logIn">
-            <h1>{{ endPoint }}</h1>
+            <h1>{{ logInEndPoint }}</h1>
             <div>
                 <label for="body">JSON request body</label>
             </div>

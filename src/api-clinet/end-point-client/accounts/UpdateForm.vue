@@ -4,35 +4,32 @@ import { reactive } from 'vue'
 const apiLocation = defineModel('apiLocation', { default: 'API server host name with protocol' })
 const endPoint = defineModel('endPoint', { default: 'API call end point' })
 const method = defineModel('method', { default: 'HTTP request method' })
-const session = defineModel('session', { default: 'API working session ID' })
-
-const logOutEndPoint = `${endPoint.value}/logout`
 
 const data = reactive({
+    firstName: '',
+    lastName: '',
     code: '',
     content: '',
 })
 
-async function logOut() {
+async function UpdateAccount() {
     const headers = new Headers()
     headers.append('Content-Type', 'application/json')
 
     const sessionId = localStorage.getItem('session_id')
-    const response = await fetch(`${apiLocation.value}${logOutEndPoint}/?session_id=${sessionId}`, {
-        method: method.value,
-        headers: headers,
-    })
+    const response = await fetch(
+        `${apiLocation.value}${endPoint.value}/?session_id=${sessionId}&new_first_name=${data.firstName}&new_last_name=${data.lastName}`,
+        {
+            method: method.value,
+            headers: headers,
+        },
+    )
 
     data.code = response.status.toLocaleString()
     data.content = response.statusText
     response.json().then((json) => {
         data.content = JSON.stringify(json)
     })
-
-    if (response.ok) {
-        localStorage.removeItem('session_id')
-        session.value = localStorage.getItem('session_id') ?? ''
-    }
 
     if (!response.ok) {
         console.error(response)
@@ -43,16 +40,28 @@ async function logOut() {
 
 <template>
     <div>
-        <form @submit.prevent="logOut">
-            <h1>{{ logOutEndPoint }}</h1>
+        <form @submit.prevent="UpdateAccount">
+            <h1>{{ endPoint }}</h1>
             <div>
-                <button type="submit">Log Out</button>
+                <label for="body">The first name to search for</label>
+            </div>
+            <div>
+                <input id="body" v-model="data.firstName" maxlength="99" required type="text" />
+            </div>
+            <div>
+                <label for="body">The last name to search for</label>
+            </div>
+            <div>
+                <input id="body" v-model="data.lastName" maxlength="99" required type="text" />
+            </div>
+            <div>
+                <button type="submit">Update</button>
             </div>
         </form>
     </div>
     <div>
         <label for="code">Server Response Code: </label>
-        <output id="code">{{ data.code }}</output>
+        <span id="code">{{ data.code }}</span>
     </div>
     <div>
         <label for="content">Server Response JSON Content</label>
