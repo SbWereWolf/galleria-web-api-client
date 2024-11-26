@@ -4,22 +4,20 @@ import { reactive } from 'vue'
 const apiLocation = defineModel('apiLocation', { default: 'API server host name with protocol' })
 const endPoint = defineModel('endPoint', { default: 'API call end point' })
 const method = defineModel('method', { default: 'HTTP request method' })
-
-const loginEndPoint = `${endPoint.value}/login`
+const actionName = defineModel('actionName', { default: 'Example for data' })
 
 const data = reactive({
-    input: '{\n' + '  "login": "login",\n' + '  "password": "password"\n' + '}',
+    input: '',
     code: '',
     content: '',
 })
 
 async function handleSubmit() {
-    const myHeaders = new Headers()
-    myHeaders.append('Content-Type', 'application/json')
-    const response = await fetch(`${apiLocation.value}${loginEndPoint}`, {
+    const headers = new Headers()
+    headers.append('Content-Type', 'application/json')
+    const response = await fetch(`${apiLocation.value}${endPoint.value}`, {
         method: method.value,
-        headers: myHeaders,
-        body: data.inpu,
+        headers: headers,
     })
 
     data.code = response.status.toLocaleString()
@@ -45,19 +43,10 @@ async function handleSubmit() {
                 <label for="body">JSON request body</label>
             </div>
             <div>
-                <textarea
-                    id="body"
-                    v-model="data.input"
-                    cols="40"
-                    maxlength="1024"
-                    required
-                    rows="10"
-                    type="text"
-                >
-                </textarea>
+                <input id="body" v-model="data.input" maxlength="99" required type="text" />
             </div>
             <div>
-                <button type="submit">Login</button>
+                <button type="submit">{{ actionName }}</button>
             </div>
         </form>
     </div>
