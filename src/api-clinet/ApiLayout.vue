@@ -3,10 +3,12 @@ import { reactive } from 'vue'
 
 import AccountApi from './end-point-client/accounts/AccountApi.vue'
 import HealthCheckApi from '@/api-clinet/end-point-client/root/HealthCheckApi.vue'
+import ArtistApi from '@/api-clinet/end-point-client/artists/ArtistApi.vue'
 
 const data = reactive({
     location: 'http://localhost:8001',
     accounts: '/Accounts',
+    artists: '/Artists',
     heathCheck: '/',
     session: '',
 })
@@ -38,6 +40,10 @@ const data = reactive({
         </details>
         <h2>Visitors</h2>
         <h2>Artists</h2>
+        <details>
+            <summary>Методы</summary>
+            <ArtistApi v-model:api-location="data.location" v-model:end-point="data.artists" />
+        </details>
         <h2>Vouchers</h2>
     </div>
 </template>
