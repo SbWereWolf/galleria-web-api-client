@@ -5,6 +5,7 @@ import AccountApi from './end-point-client/accounts/AccountApi.vue'
 import HealthCheckApi from '@/api-clinet/end-point-client/root/HealthCheckApi.vue'
 import ArtistApi from '@/api-clinet/end-point-client/artists/ArtistApi.vue'
 import VisitorApi from '@/api-clinet/end-point-client/visitors/VisitorApi.vue'
+import VouchersApi from '@/api-clinet/end-point-client/vouchers/VouchersApi.vue'
 
 const data = reactive({
     session: '',
@@ -13,8 +14,7 @@ const data = reactive({
     accounts: '/Accounts',
     artists: '/Artists',
     visitors: '/Visitors',
-    heathCheck: '/',
-    session: '',
+    vouchers: '/Vouchers',
 })
 </script>
 
@@ -53,6 +53,10 @@ const data = reactive({
             <VisitorApi v-model:api-location="data.location" v-model:end-point="data.visitors" />
         </details>
         <h2>Vouchers</h2>
+        <details>
+            <summary>Методы</summary>
+            <VouchersApi v-model:api-location="data.location" v-model:end-point="data.vouchers" />
+        </details>
     </div>
 </template>
 
