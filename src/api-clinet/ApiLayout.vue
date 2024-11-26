@@ -7,7 +7,9 @@ import ArtistApi from '@/api-clinet/end-point-client/artists/ArtistApi.vue'
 import VisitorApi from '@/api-clinet/end-point-client/visitors/VisitorApi.vue'
 
 const data = reactive({
+    session: '',
     location: 'http://localhost:8001',
+    heathCheck: '/',
     accounts: '/Accounts',
     artists: '/Artists',
     visitors: '/Visitors',
