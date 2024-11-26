@@ -33,6 +33,7 @@ const session = defineModel('session', { default: 'API working session ID' })
 }'
         />
     </details>
+    <hr />
     <details>
         <summary>Начать сессию работы с API</summary>
         <LogInForm
@@ -42,14 +43,17 @@ const session = defineModel('session', { default: 'API working session ID' })
             v-model:session="session"
         />
     </details>
+    <hr />
     <details>
         <summary>Получить данные учётных записей</summary>
         <FindForm v-model:api-location="apiLocation" v-model:end-point="endPoint" method="GET" />
     </details>
+    <hr />
     <details>
         <summary>Изменить данные учётной записи</summary>
         <UpdateForm v-model:api-location="apiLocation" v-model:end-point="endPoint" method="PUT" />
     </details>
+    <hr />
     <details>
         <summary>Удалить учётную запись</summary>
         <DeleteForm
@@ -59,6 +63,7 @@ const session = defineModel('session', { default: 'API working session ID' })
             v-model:session="session"
         />
     </details>
+    <hr />
     <details>
         <summary>Завершить сессию работы с API</summary>
         <LogOutForm
