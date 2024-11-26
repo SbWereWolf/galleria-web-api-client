@@ -2,10 +2,12 @@
 import { reactive } from 'vue'
 
 import AccountApi from './end-point-client/accounts/AccountApi.vue'
+import HealthCheckApi from '@/api-clinet/end-point-client/root/HealthCheckApi.vue'
 
 const data = reactive({
     location: 'http://localhost:8001',
     accounts: '/Accounts',
+    heathCheck: '/',
     session: '',
 })
 </script>
@@ -17,7 +19,14 @@ const data = reactive({
     </div>
     <div>
         <h1>Картины на заказ API web client</h1>
-        <h2>Home</h2>
+        <h2>Health Check</h2>
+        <details>
+            <summary>Методы</summary>
+            <HealthCheckApi
+                v-model:api-location="data.location"
+                v-model:end-point="data.heathCheck"
+            />
+        </details>
         <h2>Accounts</h2>
         <details>
             <summary>Методы</summary>
