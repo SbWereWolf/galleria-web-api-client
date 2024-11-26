@@ -9,7 +9,7 @@ const endPoint = defineModel('endPoint', { default: 'API call end point' })
 
 <template>
     <details>
-        <summary>Показать профиль</summary>
+        <summary>Показать художника</summary>
         <ShowForm v-model:api-location="apiLocation" v-model:end-point="endPoint" method="GET" />
     </details>
     <details>
@@ -17,7 +17,7 @@ const endPoint = defineModel('endPoint', { default: 'API call end point' })
         <UpdateForm v-model:api-location="apiLocation" v-model:end-point="endPoint" method="PUT" />
     </details>
     <details>
-        <summary>Найти художника</summary>
+        <summary>Подобрать художника по стилю</summary>
         <FindForm v-model:api-location="apiLocation" v-model:end-point="endPoint" method="GET" />
     </details>
 </template>
