@@ -42,7 +42,7 @@ async function DeleteAccount() {
 <template>
     <div>
         <form @submit.prevent="DeleteAccount">
-            <h1>{{ logOutEndPoint }}</h1>
+            <h1>{{ endPoint }}</h1>
             <div>
                 <button type="submit">Delete account</button>
             </div>
