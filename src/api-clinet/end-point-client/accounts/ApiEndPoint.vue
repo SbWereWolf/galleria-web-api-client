@@ -1,12 +1,12 @@
 <script setup>
-import LoginForm from './LoginForm.vue'
-import LogoutForm from './LogoutForm.vue'
+import LogInForm from './LogInForm.vue'
+import LogOutForm from './LogOutForm.vue'
 import RequestWithBodyForm from '../../ui/RequestWithBodyForm.vue'
 import RequestWithQueryStringForm from '../../ui/RequestWithQueryStringForm.vue'
 
 const apiLocation = defineModel('apiLocation', { default: 'API server host name with protocol' })
 const endPoint = defineModel('endPoint', { default: 'API call end point' })
-const sessionId = defineModel('sessionId', { default: 'API working session ID' })
+const session = defineModel('session', { default: 'API working session ID' })
 </script>
 
 <template>
@@ -33,11 +33,11 @@ const sessionId = defineModel('sessionId', { default: 'API working session ID' }
     </details>
     <details>
         <summary>Начать сессию работы с API</summary>
-        <LoginForm
+        <LogInForm
             v-model:api-location="apiLocation"
             v-model:end-point="endPoint"
-            v-model:session-id="sessionId"
             method="POST"
+            v-model:session="session"
         />
     </details>
     <details>
@@ -66,6 +66,11 @@ const sessionId = defineModel('sessionId', { default: 'API working session ID' }
     </details>
     <details>
         <summary>Завершить сессию работы с API</summary>
-        <LogoutForm v-model:api-location="apiLocation" v-model:end-point="endPoint" method="GET" />
+        <LogOutForm
+            v-model:api-location="apiLocation"
+            v-model:end-point="endPoint"
+            v-model:session="session"
+            method="GET"
+        />
     </details>
 </template>

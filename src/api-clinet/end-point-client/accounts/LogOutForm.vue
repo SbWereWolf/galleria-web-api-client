@@ -4,34 +4,35 @@ import { reactive } from 'vue'
 const apiLocation = defineModel('apiLocation', { default: 'API server host name with protocol' })
 const endPoint = defineModel('endPoint', { default: 'API call end point' })
 const method = defineModel('method', { default: 'HTTP request method' })
-const sessionId = defineModel('sessionId', { default: 'API working session ID' })
+const session = defineModel('session', { default: 'API working session ID' })
 
-const loginEndPoint = `${endPoint.value}/login`
+const logOutEndPoint = `${endPoint.value}/logout`
 
 const data = reactive({
-    input: '{\n' + '  "login": "login",\n' + '  "password": "password"\n' + '}',
+    input: '',
     code: '',
     content: '',
 })
 
-async function logIn() {
+async function logOut() {
     const myHeaders = new Headers()
     myHeaders.append('Content-Type', 'application/json')
-    const response = await fetch(`${apiLocation.value}${loginEndPoint}`, {
+
+    const sessionId = localStorage.getItem('session_id')
+    const response = await fetch(`${apiLocation.value}${logOutEndPoint}/?session_id=${sessionId}`, {
         method: method.value,
         headers: myHeaders,
-        body: data.input,
     })
 
     data.code = response.status.toLocaleString()
     data.content = response.statusText
     response.json().then((json) => {
         data.content = JSON.stringify(json)
-        localStorage.setItem('sessionId', json.session_id)
     })
 
     if (response.ok) {
-        sessionId.value = localStorage.getItem('sessionId') ?? ''
+        localStorage.removeItem('session_id')
+        session.value = localStorage.getItem('session_id') ?? ''
     }
 
     if (!response.ok) {
@@ -43,31 +44,16 @@ async function logIn() {
 
 <template>
     <div>
-        <form @submit.prevent="logIn">
+        <form @submit.prevent="logOut">
             <h1>{{ endPoint }}</h1>
             <div>
-                <label for="body">JSON request body</label>
-            </div>
-            <div>
-                <textarea
-                    id="body"
-                    v-model="data.input"
-                    cols="40"
-                    maxlength="1024"
-                    required
-                    rows="10"
-                    type="text"
-                >
-                </textarea>
-            </div>
-            <div>
-                <button type="submit">Log in</button>
+                <button type="submit">Log Out</button>
             </div>
         </form>
     </div>
     <div>
         <label for="code">Server Response Code: </label>
-        <span id="code">{{ data.code }}</span>
+        <output id="code">{{ data.code }}</output>
     </div>
     <div>
         <label for="content">Server Response JSON Content</label>

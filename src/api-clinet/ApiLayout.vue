@@ -6,14 +6,14 @@ import Accounts from './end-point-client/accounts/ApiEndPoint.vue'
 const data = reactive({
     location: 'http://localhost:8001',
     accounts: '/Accounts',
-    sessionId: '',
+    session: '',
 })
 </script>
 
 <template>
     <div>
         <input v-model="data.location" />
-        <input v-model="data.sessionId" />
+        <input v-model="data.session" />
     </div>
     <div>
         <h1>Картины на заказ API web client</h1>
@@ -24,7 +24,7 @@ const data = reactive({
             <Accounts
                 v-model:api-location="data.location"
                 v-model:end-point="data.accounts"
-                v-model:session-id="data.sessionId"
+                v-model:session="data.session"
             />
         </details>
         <h2>Visitors</h2>
