@@ -1,11 +1,11 @@
 <script setup>
 import { reactive } from 'vue'
 
-import Account from './end-point-client/accounts/Account.vue'
+import AccountApi from './end-point-client/accounts/AccountApi.vue'
 
 const data = reactive({
     location: 'http://localhost:8001',
-    accounts: '/Account',
+    accounts: '/Accounts',
     session: '',
 })
 </script>
@@ -21,7 +21,7 @@ const data = reactive({
         <h2>Accounts</h2>
         <details>
             <summary>Методы</summary>
-            <Account
+            <AccountApi
                 v-model:api-location="data.location"
                 v-model:end-point="data.accounts"
                 v-model:session="data.session"
