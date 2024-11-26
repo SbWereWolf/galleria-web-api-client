@@ -61,7 +61,7 @@ async function FindAccounts() {
     </div>
     <div>
         <label for="code">Server Response Code: </label>
-        <span id="code">{{ data.code }}</span>
+        <output id="code">{{ data.code }}</output>
     </div>
     <div>
         <label for="content">Server Response JSON Content</label>
