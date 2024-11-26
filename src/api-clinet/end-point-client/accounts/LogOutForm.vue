@@ -15,13 +15,13 @@ const data = reactive({
 })
 
 async function logOut() {
-    const myHeaders = new Headers()
-    myHeaders.append('Content-Type', 'application/json')
+    const headers = new Headers()
+    headers.append('Content-Type', 'application/json')
 
     const sessionId = localStorage.getItem('session_id')
     const response = await fetch(`${apiLocation.value}${logOutEndPoint}/?session_id=${sessionId}`, {
         method: method.value,
-        headers: myHeaders,
+        headers: headers,
     })
 
     data.code = response.status.toLocaleString()
