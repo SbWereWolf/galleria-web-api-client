@@ -43,16 +43,22 @@ async function UpdateAccount() {
         <form @submit.prevent="UpdateAccount">
             <h1>{{ endPoint }}</h1>
             <div>
-                <label for="body">The first name to search for</label>
+                <label for="firstName">The first name to search for</label>
             </div>
             <div>
-                <input id="body" v-model="data.firstName" maxlength="99" required type="text" />
+                <input
+                    id="firstName"
+                    v-model="data.firstName"
+                    maxlength="99"
+                    required
+                    type="text"
+                />
             </div>
             <div>
-                <label for="body">The last name to search for</label>
+                <label for="lastName">The last name to search for</label>
             </div>
             <div>
-                <input id="body" v-model="data.lastName" maxlength="99" required type="text" />
+                <input id="lastName" v-model="data.lastName" maxlength="99" required type="text" />
             </div>
             <div>
                 <button type="submit">Update</button>
