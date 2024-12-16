@@ -25,36 +25,31 @@ const data = reactive({
     </div>
     <div>
         <h1>Картины на заказ API web client</h1>
-        <h2>Health Check</h2>
         <details>
-            <summary>Методы</summary>
+            <summary>Health Check Методы</summary>
             <HealthCheckApi
                 v-model:api-location="data.location"
                 v-model:end-point="data.heathCheck"
             />
         </details>
-        <h2>Accounts</h2>
         <details>
-            <summary>Методы</summary>
+            <summary>Accounts Методы</summary>
             <AccountApi
                 v-model:api-location="data.location"
                 v-model:end-point="data.accounts"
                 v-model:session="data.session"
             />
         </details>
-        <h2>Artists</h2>
         <details>
-            <summary>Методы</summary>
+            <summary>Artists Методы</summary>
             <ArtistApi v-model:api-location="data.location" v-model:end-point="data.artists" />
         </details>
-        <h2>Visitors</h2>
         <details>
-            <summary>Методы</summary>
+            <summary>Visitors Методы</summary>
             <VisitorApi v-model:api-location="data.location" v-model:end-point="data.visitors" />
         </details>
-        <h2>Vouchers</h2>
         <details>
-            <summary>Методы</summary>
+            <summary>Vouchers Методы</summary>
             <VouchersApi v-model:api-location="data.location" v-model:end-point="data.vouchers" />
         </details>
     </div>

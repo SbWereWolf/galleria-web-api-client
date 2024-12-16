@@ -28,20 +28,20 @@ async function logIn() {
     let session_id = ''
     response.json().then((json) => {
         data.content = JSON.stringify(json)
-        if (json?.session_id) {
+        if (json.session_id) {
             session_id = json.session_id
         }
+
+        if (response.ok && session_id) {
+            localStorage.setItem('session_id', session_id)
+            session.value = session_id
+        }
+
+        if (!response.ok) {
+            console.error(response)
+            throw new Error(`Response status: ${response.status}`)
+        }
     })
-
-    if (response.ok && session_id) {
-        localStorage.setItem('session_id', session_id)
-        session.value = session_id
-    }
-
-    if (!response.ok) {
-        console.error(response)
-        throw new Error(`Response status: ${response.status}`)
-    }
 }
 </script>
 
