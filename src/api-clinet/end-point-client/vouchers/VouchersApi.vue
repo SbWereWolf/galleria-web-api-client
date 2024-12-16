@@ -12,21 +12,7 @@ const endPoint = defineModel('endPoint', { default: 'API call end point' })
 <template>
     <details>
         <summary>Добавить ваучер</summary>
-        <CreateForm
-            v-model:api-location="apiLocation"
-            v-model:end-point="endPoint"
-            example='{
-  "id": 10,
-  "customer": "198login",
-  "executor": "198login",
-  "amount_pictures": 3,
-  "price": 100,
-  "description": "3 pictures for 100$",
-  "status": "placed",
-  "style": "realism"
-}'
-            method="POST"
-        />
+        <CreateForm v-model:api-location="apiLocation" v-model:end-point="endPoint" method="POST" />
     </details>
     <hr />
     <details>
