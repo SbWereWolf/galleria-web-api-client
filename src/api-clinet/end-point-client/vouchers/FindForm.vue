@@ -17,15 +17,15 @@ async function FindVouchers() {
     headers.append('Content-Type', 'application/json')
 
     const sessionId = localStorage.getItem('session_id')
-    const queryString = `${apiLocation.value}${endPoint.value}?session_id=${sessionId}`
-    let statusFilter = data.style
+    let queryString = `${apiLocation.value}${endPoint.value}?session_id=${sessionId}`
+    let statusFilter = data.status
         .split(',')
         .map((x) => x.trim())
         .reduce((whole, str) => {
             return `${whole}&status=${str}`
         })
     if (statusFilter) {
-        statusFilter = `style=${statusFilter}`
+        statusFilter = `status=${statusFilter}`
     }
 
     let styleFilter = data.style
@@ -37,7 +37,15 @@ async function FindVouchers() {
     if (styleFilter) {
         styleFilter = `style=${styleFilter}`
     }
-    const response = await fetch(`${queryString}&${styleFilter}&${statusFilter}`, {
+
+    if (styleFilter) {
+        queryString = `${queryString}&${styleFilter}`
+    }
+
+    if (statusFilter) {
+        queryString = `${queryString}&${statusFilter}`
+    }
+    const response = await fetch(`${queryString}`, {
         method: method.value,
         headers: headers,
     })
